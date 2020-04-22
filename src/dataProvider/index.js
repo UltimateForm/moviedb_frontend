@@ -49,6 +49,8 @@ const standardizeTMDBHorrendousRestResponses = (resource, json,params) => {
 	}
 	else return json;
 }
+
+//this needs to be changed, didnt think moviedb api would be like this haha
 export default {
 	getList: (resource, params) => {
 		const { page, perPage } = params.pagination;
@@ -72,7 +74,9 @@ export default {
 		const query = {
 			...defaultQueryParams
 		};
-		return httpClient(`${API_ADDRESS}/${starndardizeTMDBHorrendousRestResources(resource, params)}/${params.id}?${stringify(query)}`).then(({ json }) => standardizeTMDBHorrendousRestResponses(resource,json));
+		console.log("ugh");
+		return httpClient(`${API_ADDRESS}/${resource}/${params.id}?${stringify(query)}`).then(({ json }) => ({data:json}));
+		// return httpClient(`${API_ADDRESS}/${starndardizeTMDBHorrendousRestResources(resource, params)}/${params.id}?${stringify(query)}`).then(({ json }) => standardizeTMDBHorrendousRestResponses(resource,json));
 	},
 
 	getMany: (resource, params) => {

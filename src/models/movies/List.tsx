@@ -8,33 +8,37 @@ import {
 	Datagrid,
 	List,
 	SingleFieldList,
-	ChipField
+	ChipField,
 } from "react-admin";
 import { DiscoverMoviesFilter } from "./ListFilters";
+import DetailsDrawer from "./DetailsDialog";
 
-const MovieList = (props: any) => (
-	<List {...props} filters={<DiscoverMoviesFilter />} perPage={20}>
-		<Datagrid rowClick="edit">
-			<TextField source="id" />
-			<TextField source="title" />
-			<NumberField source="popularity" />
-			{/*             <NumberField source="vote_count" />
-            <BooleanField source="video" />
-            <TextField source="poster_path" /> 
-			<BooleanField source="adult" />*/}
-			{/*             <TextField source="backdrop_path" />
-            <TextField source="original_language" />
-            <TextField source="original_title" /> */}
-			<ReferenceArrayField source="genre_ids" reference="movieGenre">
-				<SingleFieldList>
-					<ChipField source="name" />
-				</SingleFieldList>
-			</ReferenceArrayField>
-			<NumberField source="vote_average" />
-			<TextField source="overview" />
-			<DateField source="release_date" />
-		</Datagrid>
-	</List>
-);
+const MovieList = (props: any) => {
+	const { location, basePath, resource, history } = props;
+	return (
+		<>
+			<List {...props}  sort={{ field: 'popularity', order: 'DESC' }} filters={<DiscoverMoviesFilter />} perPage={20}>
+				<Datagrid rowClick="show">
+					<TextField source="id" />
+					<TextField source="title" />
+					<NumberField source="popularity" />
+
+					<ReferenceArrayField
+						source="genre_ids"
+						reference="movieGenre"
+					>
+						<SingleFieldList>
+							<ChipField source="name" />
+						</SingleFieldList>
+					</ReferenceArrayField>
+					<NumberField source="vote_average" />
+					<TextField source="overview" />
+					<DateField source="release_date" />
+				</Datagrid>
+			</List>
+			<DetailsDrawer {...props}/>
+		</>
+	);
+};
 
 export default MovieList;
