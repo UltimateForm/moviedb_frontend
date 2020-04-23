@@ -35,7 +35,6 @@ const Chart: React.FC = (props: any) => {
 	if (loading) {
 		return <Loading />;
 	}
-	console.log(error);
 	if (error && error.name) {
 		notify(error.name, "error");
 		return <div>An error occured ahah</div>;

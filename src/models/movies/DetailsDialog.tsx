@@ -6,7 +6,8 @@ import { Show } from "react-admin";
 
 const DetailsDrawer: React.FC<any> = (props: any) => {
 	const { resource, history, basePath } = props;
-	console.log(props);
+	console.log("DetailsDrawer render");
+
 	return (
 		<Route path={`${basePath}/:id/show`}>
 			{(routeProps) => {
@@ -20,10 +21,16 @@ const DetailsDrawer: React.FC<any> = (props: any) => {
 						onClose={() => history.push(basePath)}
 					>
 						{isMatch ? (
-							<Show {...props} id={match?.params?.id} component="div">
+							<Show
+								{...props}
+								id={match?.params?.id}
+								component="div"
+							>
 								<MovieDetails />
 							</Show>
-						) : null}
+						) : (
+							<div></div>
+						)}
 					</Dialog>
 				);
 			}}

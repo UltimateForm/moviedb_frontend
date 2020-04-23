@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		cover: {
 			width: "50%",
-		}
+		},
 	})
 );
 
@@ -57,7 +57,7 @@ const MiscDataField: React.FC<any> = (props: any) => {
 	const { label, format, record, source } = props;
 	const classes = useStyles();
 	let value = record[source];
-	if (value === undefined) return <></>; //ugh
+	if (value === undefined) return (<div></div>); //ugh
 	value = format ? format(value) : value;
 	return (
 		<div className={classes.data_field}>
@@ -81,11 +81,8 @@ const MovieDetails: React.FC<any> = (props: any) => {
 	const { record } = props;
 	const classes = useStyles();
 	const theme = useTheme();
-	//console.log("MovieDetails", props);
+	console.log("MovieDetails render")
 	return (
-		/* 		<SimpleShowLayout {...props}>
-			<TextField source="title" />
-		</SimpleShowLayout> */
 		<Card className={classes.root}>
 			<CardMedia
 				className={classes.cover}
@@ -97,9 +94,7 @@ const MovieDetails: React.FC<any> = (props: any) => {
 				<CardHeader
 					title={record["title"]}
 					subheader={record["tagline"]}
-					avatar={
-						<RateMovieButton record={record}/>
-					}
+					avatar={<RateMovieButton record={record} />}
 					action={
 						<Link
 							target="_blank"

@@ -50,7 +50,6 @@ const Rater: React.FC<any> = (props: any) => {
 		scoreRef.current.score = value as number; //it is a number, its fine
 	};
 	const saveScore = async () => {
-		console.log("Saving score", scoreRef.current.score);
 		setSaving(true);
 		const url = `${API_ADDRESS}/movie/${movie_id}/rating?api_key=${API_KEY}&session_id=${session_id}`;
 		const response = await fetch(url, {

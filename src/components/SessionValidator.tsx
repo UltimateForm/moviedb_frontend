@@ -77,7 +77,6 @@ const Validator: React.FC<any> = (props: any) => {
 
 	React.useLayoutEffect(() => {
 		const setWaitingFalse = () => {
-			console.log("focusin");
 			setWaitingFocus(false);
 		};
 		window.addEventListener("focusin", setWaitingFalse);

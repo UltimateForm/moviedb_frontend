@@ -55,7 +55,6 @@ export default {
 	getList: (resource, params) => {
 		const { page, perPage } = params.pagination;
 		const { field, order } = params.sort;
-		console.log(field, order)
 		const query = {
 			sort_by: `${field}.${order.toLowerCase()}`,
 			page: page,
@@ -74,7 +73,6 @@ export default {
 		const query = {
 			...defaultQueryParams
 		};
-		console.log("ugh");
 		return httpClient(`${API_ADDRESS}/${resource}/${params.id}?${stringify(query)}`).then(({ json }) => ({data:json}));
 		// return httpClient(`${API_ADDRESS}/${starndardizeTMDBHorrendousRestResources(resource, params)}/${params.id}?${stringify(query)}`).then(({ json }) => standardizeTMDBHorrendousRestResponses(resource,json));
 	},
