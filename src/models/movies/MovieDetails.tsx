@@ -1,5 +1,4 @@
 import React from "react";
-import { SimpleShowLayout, Show, TextField } from "react-admin";
 import {
 	Theme,
 	createStyles,
@@ -19,6 +18,8 @@ import {
 } from "@material-ui/core";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { MOVIE_DB_IMAGE_PATH } from "../../config";
+import { useCreateRequestToken } from "../../hooks";
+import { RateMovieButton } from "../../components";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -30,22 +31,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: "flex",
 			flexDirection: "column",
 		},
+		misc_details: {
+			display: "flex",
+			flexWrap: "wrap",
+		},
+		data_field: {
+			margin: "0.5em",
+		},
 		content: {
 			flex: "1 0 auto",
 		},
 		cover: {
 			width: "50%",
-		},
-		controls: {
-			display: "flex",
-			alignItems: "center",
-			paddingLeft: theme.spacing(1),
-			paddingBottom: theme.spacing(1),
-		},
-		playIcon: {
-			height: 38,
-			width: 38,
-		},
+		}
 	})
 );
 
@@ -56,15 +54,20 @@ const DataLabel: React.FC<any> = (props: any) => (
 );
 
 const MiscDataField: React.FC<any> = (props: any) => {
-	const { label, value } = props;
+	const { label, format, record, source } = props;
+	const classes = useStyles();
+	let value = record[source];
+	if (value === undefined) return <></>; //ugh
+	value = format ? format(value) : value;
 	return (
-		<div>
+		<div className={classes.data_field}>
 			<DataLabel label={label} />
 			<Typography variant="body1">{value}</Typography>
 		</div>
 	);
 };
 
+///there are other ways but i dont have time
 const Minutes2ReadableDuration = (minutes: number) => {
 	var num = minutes;
 	var hours = num / 60;
@@ -78,7 +81,7 @@ const MovieDetails: React.FC<any> = (props: any) => {
 	const { record } = props;
 	const classes = useStyles();
 	const theme = useTheme();
-	console.log("MovieDetails", props);
+	//console.log("MovieDetails", props);
 	return (
 		/* 		<SimpleShowLayout {...props}>
 			<TextField source="title" />
@@ -95,9 +98,7 @@ const MovieDetails: React.FC<any> = (props: any) => {
 					title={record["title"]}
 					subheader={record["tagline"]}
 					avatar={
-						<Avatar color="primary">
-							{record["vote_average"]}
-						</Avatar>
+						<RateMovieButton record={record}/>
 					}
 					action={
 						<Link
@@ -116,7 +117,7 @@ const MovieDetails: React.FC<any> = (props: any) => {
 						{record["overview"]}
 					</Typography>
 				</CardContent>
-				{record["genres"]&&record["genres"].length>0 && (
+				{record["genres"] && record["genres"].length > 0 && (
 					<CardContent>
 						<div>
 							<DataLabel label="Genres" />
@@ -126,37 +127,82 @@ const MovieDetails: React.FC<any> = (props: any) => {
 						</div>
 					</CardContent>
 				)}
-				<CardContent>
-					{record["status"] && (
-						<MiscDataField
-							label="Status"
-							value={record["status"]}
-						/>
+				{record["spoken_languages"] &&
+					record["spoken_languages"].length > 0 && (
+						<CardContent>
+							<div>
+								<DataLabel label="Spoken Languages" />
+								{record["spoken_languages"].map((lang: any) => (
+									<Chip label={lang.name} />
+								))}
+							</div>
+						</CardContent>
+					)}{" "}
+				{record["production_countries"] &&
+					record["production_countries"].length > 0 && (
+						<CardContent>
+							<div>
+								<DataLabel label="Production Countires" />
+								{record["production_countries"].map(
+									(lang: any) => (
+										<Chip label={lang.name} />
+									)
+								)}
+							</div>
+						</CardContent>
 					)}
-					{record["release_date"] && (
-						<MiscDataField
-							label="Release Date"
-							value={record["release_date"]}
-						/>
+				{record["production_countries"] &&
+					record["production_companies"].length > 0 && (
+						<CardContent>
+							<div>
+								<DataLabel label="Production Companies" />
+								{record["production_companies"].map(
+									(lang: any) => (
+										<Chip label={lang.name} />
+									)
+								)}
+							</div>
+						</CardContent>
 					)}
-					{record["runtime"]!=undefined && (
-						<MiscDataField
-							label="Runtime"
-							value={Minutes2ReadableDuration(record["runtime"])}
-						/>
-					)}
-					{record["budget"]!=undefined && (
-						<MiscDataField
-							label="Budget"
-							value={record["budget"].toLocaleString(
-								navigator.language,
-								{
-									style: "currency",
-									currency: "USD",
-								}
-							)}
-						/>
-					)}
+				<CardContent className={classes.misc_details}>
+					<MiscDataField
+						label="Status"
+						record={record}
+						source="status"
+					/>
+					<MiscDataField
+						label="Release Date"
+						record={record}
+						source="release_date"
+					/>
+					<MiscDataField
+						label="Runtime"
+						record={record}
+						format={Minutes2ReadableDuration}
+						source="runtime"
+					/>
+					<MiscDataField
+						label="Budget"
+						source="budget"
+						record={record}
+						format={(value: number) =>
+							value.toLocaleString(navigator.language, {
+								style: "currency",
+								currency: "USD",
+							})
+						}
+					/>
+					<MiscDataField
+						label="Revenue"
+						source="revenue"
+						record={record}
+						format={(value: number) =>
+							value.toLocaleString(navigator.language, {
+								style: "currency",
+								currency: "USD",
+							})
+						}
+					/>
 				</CardContent>
 			</div>
 		</Card>

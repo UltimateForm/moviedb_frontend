@@ -9,15 +9,19 @@ import {
 	List,
 	SingleFieldList,
 	ChipField,
+	Pagination
 } from "react-admin";
 import { DiscoverMoviesFilter } from "./ListFilters";
 import DetailsDrawer from "./DetailsDialog";
+
+const ListPagination = (props:any) => <Pagination rowsPerPageOptions={[]} {...props} />;
+
 
 const MovieList = (props: any) => {
 	const { location, basePath, resource, history } = props;
 	return (
 		<>
-			<List {...props}  sort={{ field: 'popularity', order: 'DESC' }} filters={<DiscoverMoviesFilter />} perPage={20}>
+			<List {...props} bulkActionButtons={false}  pagination={<ListPagination />} sort={{ field: 'popularity', order: 'DESC' }} filters={<DiscoverMoviesFilter />} perPage={20}>
 				<Datagrid rowClick="show">
 					<TextField source="id" />
 					<TextField source="title" />
