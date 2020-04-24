@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/moviedb_frontend/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/moviedb_frontend/static/js/main.80e7a091.chunk.js",
-    "main.js.map": "/moviedb_frontend/static/js/main.80e7a091.chunk.js.map",
+    "main.js": "/moviedb_frontend/static/js/main.67ba4e7f.chunk.js",
+    "main.js.map": "/moviedb_frontend/static/js/main.67ba4e7f.chunk.js.map",
     "runtime-main.js": "/moviedb_frontend/static/js/runtime-main.08f4f6ad.js",
     "runtime-main.js.map": "/moviedb_frontend/static/js/runtime-main.08f4f6ad.js.map",
     "static/js/2.dea2cbff.chunk.js": "/moviedb_frontend/static/js/2.dea2cbff.chunk.js",
     "static/js/2.dea2cbff.chunk.js.map": "/moviedb_frontend/static/js/2.dea2cbff.chunk.js.map",
     "index.html": "/moviedb_frontend/index.html",
-    "precache-manifest.1beb1bb577d6f03baf626cbf8e02e4d2.js": "/moviedb_frontend/precache-manifest.1beb1bb577d6f03baf626cbf8e02e4d2.js",
+    "precache-manifest.d9d87c2915c792cdab1993e3e9ae109b.js": "/moviedb_frontend/precache-manifest.d9d87c2915c792cdab1993e3e9ae109b.js",
     "service-worker.js": "/moviedb_frontend/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/moviedb_frontend/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.dea2cbff.chunk.js.LICENSE.txt": "/moviedb_frontend/static/js/2.dea2cbff.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.08f4f6ad.js",
     "static/js/2.dea2cbff.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.80e7a091.chunk.js"
+    "static/js/main.67ba4e7f.chunk.js"
   ]
 }
