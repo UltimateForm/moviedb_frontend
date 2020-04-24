@@ -72,6 +72,7 @@ const Validator: React.FC<any> = (props: any) => {
 			return Promise.reject(json.status_message);
 		}
 		window.sessionStorage.setItem("session_id", json.session_id);
+		setLoading(false);
 		return Promise.resolve(json.session_id);
 	}, [waitingFocus, session_id]);
 
